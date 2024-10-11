@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        video {
+            width: 100%;
+            height: auto;
+        }
+        .download-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .download-link:hover {
+            background-color: #2980b9;
+        }
+        .analytics-summary {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Analytics</h1>
+    
+    <div class="analytics-summary">
+        <h2>Summary</h2>
+        <p>Total videos: <span id="totalVideos">0</span></p>
+        <p>Total storage used: <span id="totalStorage">0 MB</span></p>
+    </div>
+
+    <h2>Recorded Videos</h2>
+    <div id="videoGrid" class="video-grid"></div>
+
+    <script>
+        function loadVideos() {
+            fetch('/videos')
+                .then(response => response.json())
+                .then(videos => {
+                    const videoGrid = document.getElementById('videoGrid');
+                    videoGrid.innerHTML = '';
+                    let totalSize = 0;
+
+                    videos.forEach((video, index) => {
+                        const container = document.createElement('div');
+                        container.className = 'video-container';
+
+                        const videoElement = document.createElement('video');
+                        videoElement.src = `/uploads/${video}`;
+                        videoElement.controls = true;
+
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = `/uploads/${video}`;
+                        downloadLink.download = `video${index + 1}.webm`;
+                        downloadLink.textContent = `Download Video ${index + 1}`;
+                        downloadLink.className = 'download-link';
+
+                        container.appendChild(videoElement);
+                        container.appendChild(document.createElement('br'));
+                        container.appendChild(downloadLink);
+
+                        videoGrid.appendChild(container);
+
+                        // Fetch video file size
+                        fetch(`/uploads/${video}`)
+                            .then(response => {
+                                const size = parseInt(response.headers.get('Content-Length') || '0');
+                                totalSize += size;
+                                updateAnalytics(videos.length, totalSize);
+                            });
+                    });
+                })
+                .catch(error => console.error('Error loading videos:', error));
+        }
+
+        function updateAnalytics(totalVideos, totalSize) {
+            document.getElementById('totalVideos').textContent = totalVideos;
+            document.getElementById('totalStorage').textContent = `${(totalSize / (1024 * 1024)).toFixed(2)} MB`;
+        }
+
+        loadVideos();
+    </script>
+</body>
+</html>

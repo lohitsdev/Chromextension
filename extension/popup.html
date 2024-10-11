@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Recorder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <button id="recordButton" class="record-button">
+        <i class="fas fa-record-vinyl"></i>
+        <span>Start Rec</span>
+    </button>
+    <div id="namePopup" class="popup">
+        <div class="popup-content">
+            <h2>Enter Video Name</h2>
+            <input type="text" id="videoName" placeholder="Enter video name">
+            <button id="confirmName">OK</button>
+            <button id="cancelName">Cancel</button>
+        </div>
+    </div>
+    <p id="status"></p>
+    <script src="popup.js"></script>
+</body>
+</html>

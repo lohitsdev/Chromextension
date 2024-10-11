@@ -1,0 +1,25 @@
+#recordingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: none;
+}
+
+#recordingMenu {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 10000;
+}
+
+#recordingMenu button {
+  margin: 5px;
+  padding: 5px 10px;
+}

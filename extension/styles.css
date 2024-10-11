@@ -1,0 +1,71 @@
+body {
+  width: 200px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.record-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.record-button:hover {
+  background-color: #45a049;
+}
+
+.record-button.recording {
+  background-color: #f44336;
+}
+
+.record-button.recording:hover {
+  background-color: #da190b;
+}
+
+.record-button i {
+  margin-right: 5px;
+}
+
+#status {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+}
+
+#videoName {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+#confirmName, #cancelName {
+  padding: 5px 10px;
+  margin: 0 5px;
+}

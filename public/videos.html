@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorded Videos</title>
+    <style>
+        .video-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Recorded Videos</h1>
+    <div id="videoList"></div>
+
+    <script>
+        function loadVideos() {
+            fetch('/videos')
+                .then(response => response.json())
+                .then(videos => {
+                    const videoList = document.getElementById('videoList');
+                    videoList.innerHTML = '';
+                    videos.forEach(video => {
+                        const container = document.createElement('div');
+                        container.className = 'video-container';
+
+                        const videoElement = document.createElement('video');
+                        videoElement.src = `/uploads/${video}`;
+                        videoElement.controls = true;
+                        videoElement.width = 320;
+
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = `/uploads/${video}`;
+                        downloadLink.download = 'video1.webm';
+                        downloadLink.textContent = 'Download video 1';
+
+                        container.appendChild(videoElement);
+                        container.appendChild(document.createElement('br'));
+                        container.appendChild(downloadLink);
+
+                        videoList.appendChild(container);
+                    });
+                })
+                .catch(error => console.error('Error loading videos:', error));
+        }
+
+        loadVideos();
+    </script>
+</body>
+</html>
